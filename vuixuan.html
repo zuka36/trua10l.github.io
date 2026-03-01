@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xuân Giáp Thìn 10L - Album Ảnh Tết</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        /* ===== CÀI ĐẶT CHUNG ===== */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-image: url("hoamai.png"); 
+            background-size: cover; background-position: center; background-attachment: fixed;
+            background-color: #fff5f5; color: #333; overflow-x: hidden;
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+
+        /* ===== HIỆU ỨNG HOA MAI RƠI ===== */
+        .snowflake {
+            position: fixed; top: -50px; z-index: 9999; pointer-events: none;
+            animation-name: fall, swing; animation-timing-function: linear, ease-in-out;
+            animation-iteration-count: infinite; color: #ffd700;
+        }
+        @keyframes fall { 0% { top: -50px; } 100% { top: 100vh; } }
+        @keyframes swing { 0% { transform: translateX(0px) rotate(0deg); } 50% { transform: translateX(100px) rotate(180deg); } 100% { transform: translateX(0px) rotate(360deg); } }
+
+        /* ===== BANNER ===== */
+        .banner {
+            width: 100%; height: 250px;
+            background: linear-gradient(rgba(211, 47, 47, 0.95), rgba(183, 28, 28, 0.8));
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: #ffd700; text-shadow: 2px 2px 10px rgba(0,0,0,0.4); text-align: center;
+            border-bottom: 5px solid #ffd700; position: relative;
+        }
+        .banner h1 { margin: 0; font-size: 3rem; text-transform: uppercase; letter-spacing: 3px; }
+
+        /* ===== CONTAINER NỘI DUNG CHÍNH ===== */
+        .container { max-width: 1200px; margin: 50px auto; padding: 0 20px; flex: 1; }
+
+        .tet-section {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 30px; padding: 40px; margin-bottom: 60px;
+            display: flex; align-items: center; gap: 50px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border: 2px dashed #ffcc00; position: relative;
+        }
+        /* Tự động đảo chiều ô số 2 để so le */
+        .tet-section:nth-child(even) { flex-direction: row-reverse; }
+
+        .flower-corner {
+            position: absolute; top: 20px; right: 20px; width: 65px;
+            filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.2)); z-index: 5;
+        }
+
+        /* ===== SLIDER HÌNH CHỮ NHẬT BO TRÒN ===== */
+        .tet-image-slider {
+            flex: 1;
+            min-width: 400px;
+            max-width: 550px; 
+            height: 380px;    
+            border-radius: 40px; /* Bo góc mượt mà */
+            overflow: hidden;
+            border: 8px solid #ffd700;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        
+        .swiper { width: 100%; height: 100%; }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Nút bấm chuyển ảnh */
+        .swiper-button-next, .swiper-button-prev {
+            color: #ffd700 !important; transform: scale(0.7);
+            background: rgba(0, 0, 0, 0.4);
+            width: 50px; height: 50px; border-radius: 50%;
+        }
+        .swiper-pagination-bullet-active { background: #d32f2f !important; }
+
+        /* ===== VĂN BẢN ===== */
+        .tet-text { flex: 1.3; }
+        .tet-text h2 {
+            color: #d32f2f; border-bottom: 3px solid #ffd700; display: inline-block;
+            margin-bottom: 20px; font-size: 2rem; padding-bottom: 5px;
+        }
+        .tet-text p { line-height: 1.8; font-size: 1.15rem; color: #444; text-align: justify; }
+
+        footer {
+            background: #2d2d2d; color: #ffd700; text-align: center; padding: 25px;
+            border-top: 5px solid #d32f2f;
+        }
+
+        @media (max-width: 900px) {
+            .tet-section, .tet-section:nth-child(even) { flex-direction: column; text-align: center; }
+            .tet-image-slider { max-width: 100%; min-width: auto; height: 300px; }
+            .container { padding: 0 10px; }
+        }
+        .glitter-btn {
+  background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3, #48dbfb);
+  background-size: 300% 300%;
+  border: none;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 16px 45px;
+  border-radius: 60px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.7), 0 0 40px rgba(255, 223, 0, 0.5), 0 0 60px rgba(72, 219, 251, 0.5);
+  animation: glitter 1.5s ease-in-out infinite, gradientShift 4s ease infinite;
+  transition: transform 0.3s, box-shadow 0.3s;
+  letter-spacing: 1px;
+  border: 2px solid rgba(255,255,255,0.3);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.glitter-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 30px rgba(255, 105, 180, 0.9), 0 0 60px rgba(255, 223, 0, 0.8), 0 0 90px rgba(72, 219, 251, 0.8);
+}
+
+@keyframes glitter {
+  0% { opacity: 0.8; text-shadow: 0 0 5px #fff; }
+  50% { opacity: 1; text-shadow: 0 0 20px #fff, 0 0 30px #ff0; }
+  100% { opacity: 0.8; text-shadow: 0 0 5px #fff; }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+    </style>
+</head>
+<body>
+
+<div id="snow-container"></div>
+
+<div class="banner">
+    <h1>XUÂN GIÁP THÌN 10L</h1>
+    <p>Album Ảnh Tết Chuyên Hùng Vương</p>
+</div>
+
+<div class="container">
+    
+    <div class="tet-section">
+        <div class="tet-image-slider">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="muc1.jpg" alt="Ảnh 1"></div>
+                    <div class="swiper-slide"><img src="muc2.jpg" alt="Ảnh 2"></div>
+                    <div class="swiper-slide"><img src="muc13 (1).jpg" alt="Ảnh 2"></div>
+                    <div class="swiper-slide"><img src="muc13 (2).jpg" alt="Ảnh 2"></div>
+                    <div class="swiper-slide"><img src="muc13 (3).jpg" alt="Ảnh 2"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+        <div class="tet-text">
+            <h2>🏮Sắc Xuân Rộn Ràng Tại Lớp 10L</h2>
+            <p>Ngày xuân về mang theo không khí Tết rộn ràng tràn ngập lớp 10L. Lớp học trở nên tươi mới và ấm áp hơn khi sắc xuân hiện diện khắp nơi, từ những lời chúc đầu năm đến niềm vui rạng rỡ trên gương mặt mỗi bạn học sinh. Không khí Tết khiến ai cũng háo hức, phấn khởi và thêm yêu những ngày đầu năm mới bên tập thể lớp thân thương.</p>
+        </div>
+    </div>
+
+    <div class="tet-section">
+        <div class="tet-image-slider">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="muc14 (1).jpg" alt="Ảnh 1"></div>
+                    <div class="swiper-slide"><img src="muc14 (2).jpg" alt="Ảnh 2"></div>
+                    <div class="swiper-slide"><img src="muc14 (3).jpg" alt="Ảnh 2"></div>
+                    <div class="swiper-slide"><img src="muc14 (4).jpg" alt="Ảnh 1"></div>
+                    <div class="swiper-slide"><img src="muc14 (5).jpg" alt="Ảnh 2"></div>
+                    <div class="swiper-slide"><img src="muc14 (6).jpg" alt="Ảnh 2"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+        <div class="tet-text">
+            <h2>🧧 Xuân Gắn Kết Lớp 10L</h2>
+            <p>Hòa trong không khí xuân ấy, các bạn trong lớp 10L đã cùng nhau làm hoa mai để trang trí lớp học. Những bông hoa mai vàng rực rỡ được tạo nên từ đôi tay khéo léo và sự sáng tạo của cả lớp, góp phần làm cho không gian lớp học thêm sinh động và đậm chất Tết. Mỗi hoạt động đều mang lại tiếng cười, sự gắn kết và niềm vui chung cho cả tập thể.</p>
+        </div>
+    </div>
+
+    <div class="tet-section">
+        <div class="tet-image-slider">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="muc3.jpg" alt="Ảnh 1"></div>
+                    <div class="swiper-slide"><img src="muc4.jpg" alt="Ảnh 2"></div>
+                    <div class="swiper-slide"><img src="muc5.jpg" alt="Ảnh 2"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+        <div class="tet-text">
+            <h2>✨ Khoảnh Khắc Xuân Lớp 10L</h2>
+            <p>Sau khi hoàn thành việc trang trí, một số bạn trong lớp 10L đã cùng nhau chụp những bức ảnh kỉ niệm. Trên mái tóc của các bạn là những bông hoa mai xinh xắn, làm gương mặt ai cũng thêm rạng rỡ và tươi vui. Giữa không gian ngập tràn sắc xuân, những khoảnh khắc ấy trở nên thật đáng yêu, lưu giữ vẻ đẹp hồn nhiên và những kỉ niệm khó quên của lớp 10L trong ngày Tết. </p>
+        </div>
+    </div>
+
+</div>
+
+<div style="text-align: center; margin: 30px 0 40px;">
+  <a href="index.html" class="glitter-btn">🏠 Quay về trang chủ</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+    // 1. Kích hoạt nút bấm trượt ảnh cho CẢ 3 Ô
+    var swipers = new Swiper(".mySwiper", {
+        loop: true,
+        autoplay: { delay: 4000, disableOnInteraction: false },
+        pagination: { el: ".swiper-pagination", clickable: true },
+        navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+    });
+
+    // 2. Kích hoạt hiệu ứng hoa mai rơi
+    const container = document.getElementById('snow-container');
+    const flowers = [ '🌸', '🧨']; 
+    function createSnowflake() {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+        snowflake.style.left = Math.random() * 100 + 'vw';
+        snowflake.style.fontSize = (Math.random() * 10 + 15) + 'px';
+        const duration = Math.random() * 6 + 6;
+        snowflake.style.animationDuration = `${duration}s, ${duration/2}s`;
+        snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+        container.appendChild(snowflake);
+        
+        // Tự động dọn dẹp hoa đã rơi để web không bị lag
+        setTimeout(() => { snowflake.remove(); }, duration * 1000);
+    }
+    // Cứ 300 mili-giây sẽ rớt 1 bông hoa mới
+    setInterval(createSnowflake, 300);
+</script>
+
+</body>
+</html>

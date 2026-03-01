@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physics K28</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    background-image: url("Nen.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    zoom: 0.7;
+}
+
+.page-content{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Banner */
+.banner {
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(90deg,#00c853,#00e5ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+/* Tiêu đề */
+.main-title {
+    text-align: center;
+    font-size: 38px;
+    font-weight: 800;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #00e5ff, #00c853);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Slider */
+.slider-wrapper {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+}
+
+#rotationSlider {
+    width: 55%;
+    height: 6px;
+    appearance: none;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #4CAF50, #6ec6ff);
+    outline: none;
+}
+
+#rotationSlider::-webkit-slider-thumb {
+    appearance: none;
+    width: 80px;
+    height: 40px;
+    border-radius: 50%;
+    background: url("logo.png") center/cover no-repeat;
+    border: 3px solid white;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Carousel */
+.carousel-container {
+    width: 100%;
+    height: 300px;
+    perspective: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel {
+    position: relative;
+    width: 160px;
+    height: 110px;
+    transform-style: preserve-3d;
+    transition: transform 1s cubic-bezier(.25,.8,.25,1);
+}
+
+.carousel img {
+    position: absolute;
+    width: 160px;
+    height: auto;
+    max-height: 110px;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+}
+
+/* Caption */
+.caption-box {
+    width: fit-content;
+    margin: 25px auto 0 auto;
+    padding: 14px 32px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    background-image: linear-gradient(90deg, #00e5ff, #00c853);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.5s ease;
+}
+
+/* Final message */
+.final-message{
+    width: fit-content;
+    margin: 40px auto 0 auto;
+    padding: 20px 40px;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(90deg,#00e5ff,#00c853);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-color: rgba(255,255,255,0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 35px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.6s ease;
+}
+
+/* ===== POPUP ===== */
+.popup-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.popup-overlay.show{
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup-box{
+    position: relative;
+    width: 650px;      /* to hơn nhưng không phá bố cục */
+    max-width: 95%;
+    padding: 45px 40px;
+    border-radius: 22px;
+    background: linear-gradient(135deg,#ffffff,#e8fdf8);
+    text-align: center;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.4);
+}
+
+.popup-box h2{
+    font-size: 30px;
+}
+
+.popup-box p{
+    font-size: 18px;
+}
+
+.close-popup{
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 18px;
+    margin-top: 30px;
+}
+
+/* ===== NÚT QUAY VỀ TRANG CHỦ (LẤP LÁNH) ===== */
+.home-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3, #48dbfb);
+    background-size: 300% 300%;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.5), 0 0 30px rgba(255, 223, 0, 0.3);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255,255,255,0.5);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: gradientShift 4s ease infinite, glitter 1.5s ease-in-out infinite;
+}
+
+.home-button:hover {
+    background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3, #48dbfb);
+    background-size: 300% 300%;
+    color: white;
+    border-color: white;
+    box-shadow: 0 0 25px rgba(255, 105, 180, 0.8), 0 0 50px rgba(255, 223, 0, 0.6), 0 0 75px rgba(72, 219, 251, 0.6);
+    transform: scale(1); /* Giữ nguyên kích thước */
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes glitter {
+    0% { opacity: 0.9; text-shadow: 0 0 5px #fff; }
+    50% { opacity: 1; text-shadow: 0 0 15px #fff, 0 0 25px #ff0; }
+    100% { opacity: 0.9; text-shadow: 0 0 5px #fff; }
+}
+
+/* Responsive cho màn hình nhỏ */
+@media (max-width: 600px) {
+    .home-button {
+        padding: 8px 16px;
+        font-size: 14px;
+        top: 10px;
+        right: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NÚT QUAY VỀ TRANG CHỦ (được thêm mới) -->
+<a href="index.html" class="home-button">🏠 Quay Về Trang Chủ</a>
+
+<div class="page-content">
+
+<div class="banner">PHYSICS K28</div>
+
+<div class="main-title">
+10L-K28 và những hình ảnh di sản...
+</div>
+
+<div class="slider-wrapper">
+<input type="range" id="rotationSlider" min="-180" max="180" value="0">
+</div>
+
+<div class="carousel-container">
+<div class="carousel" id="carousel">
+<img src="Hình/1.jpg" data-text="Mọi người đang múa mà Nhật Trường làm gì vậyyy????">
+<img src="Hình/2.jpg" data-text="Mô phật">
+<img src="Hình/3.jpg" data-text="Quang Hiếu trùm ChatLGPT">
+<img src="Hình/4.jpg" data-text="Tổng tài 10L...">
+<img src="Hình/5.jpg" data-text="Lâm Nguyên dễ thương">
+<img src="Hình/6.jpg" data-text="KẸO BIẾT">
+<img src="Hình/7.jpg" data-text="Học mệt zữ zậy bayyyy">
+<img src="Hình/8.jpg" data-text="Hê hê hê hê hê hê">
+<img src="Hình/9.jpg" data-text="Ủa?">
+<img src="Hình/10.jpg" data-text="Couple mới nổi, đằm thắm gke">
+<img src="Hình/11.jpg" data-text="GAY GO QUÁ">
+<img src="Hình/12.jpg" data-text="Tổng tài cũng buồn ngủ mà các em!!!">
+<img src="Hình/13.jpg" data-text="Ngủ kiểu gì vậy">
+<img src="Hình/14.jpg" data-text="2 khuôn mặt, 2 thái độ trái ngược nhau">
+<img src="Hình/15.jpg" data-text="Ngoài trời thì mưa tầm tã… Liệu em có thể ngã vào lòng anh?">
+<img src="Hình/16.jpg" data-text="Ngầu">
+<img src="Hình/17.jpg" data-text="Ai chỉ cho chụp vậy">
+<img src="Hình/18.jpg" data-text="Ùuuuu + Lè lưỡi (vậy là dễ thương đó)">
+<img src="Hình/19.jpg" data-text="Đẹp trai miễn bình luận">
+<img src="Hình/20.jpg" data-text="QChien hù ma ai vậy?">
+<img src="Hình/21.jpg" data-text="Cuốn sách tri thức có thể phát sáng">
+<img src="Hình/22.jpg" data-text="Tiết Lý cũng zui mò">
+</div>
+</div>
+
+<div id="captionBox" class="caption-box"></div>
+
+<div id="finalMessage" class="final-message">
+💚 Cảm ơn 10L-K28 vì những kỷ niệm tuyệt vời! <br>
+Gửi 10L–K28 thân thương, cảm ơn vì chúng mình đã gặp nhau giữa biết bao người ngoài kia, để cùng cười, cùng học và cùng lớn lên dưới cùng một mái nhà chung - L.K28. Mỗi kỷ niệm bên nhau đều là điều mình trân trọng nhất. <br>
+Chúc chúng ta dù sau này mỗi người một hướng, vẫn mãi nhớ về nhau và luôn là bạn của nhau nhé 💙✨
+</div>
+
+</div>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="popupOverlay">
+    <div class="popup-box">
+        <div class="close-popup" onclick="closePopup()">✕</div>
+        <h2>💚 Cảm ơn 10L-K28!</h2>
+        <p>
+            Cảm ơn vì những kỷ niệm tuyệt vời! <br>
+            Chúc tất cả chúng ta luôn thành công và giữ mãi tình bạn này ✨
+        </p>
+        <img src="lop.jpg" width="480">
+    </div>
+</div>
+
+
+
+<script>
+const carousel = document.getElementById("carousel");
+const slider = document.getElementById("rotationSlider");
+const images = carousel.getElementsByTagName("img");
+const captionBox = document.getElementById("captionBox");
+const finalMessage = document.getElementById("finalMessage");
+const popupOverlay = document.getElementById("popupOverlay");
+
+const n = images.length;
+let reachedLeft = false;
+let reachedRight = false;
+let popupShown = false;
+
+const imageWidth = 160;
+const radius = Math.round((imageWidth / 2) / Math.tan(Math.PI / n));
+
+for (let i = 0; i < n; i++) {
+    const angle = (360 / n) * i;
+    images[i].style.transform =
+        `rotateY(${angle}deg) translateZ(${radius}px)`;
+}
+
+function updateCaption(rotationValue) {
+    let normalizedRotation = ((rotationValue % 360) + 360) % 360;
+    const step = 360 / n;
+    let index = Math.round(normalizedRotation / step) % n;
+    index = (n - index) % n;
+
+    captionBox.style.opacity = "0";
+    captionBox.style.transform = "translateY(15px)";
+
+    setTimeout(()=>{
+        captionBox.textContent = images[index].dataset.text;
+        captionBox.style.opacity = "1";
+        captionBox.style.transform = "translateY(0)";
+    },200);
+}
+
+slider.addEventListener("input", function() {
+    const value = parseInt(this.value);
+    carousel.style.transform = `rotateY(${value}deg)`;
+    updateCaption(value);
+
+    if (value == slider.min) reachedLeft = true;
+    if (value == slider.max) reachedRight = true;
+
+    if (reachedLeft && reachedRight && !popupShown) {
+        popupShown = true;
+        popupOverlay.classList.add("show");
+    }
+});
+
+function closePopup(){
+    popupOverlay.classList.remove("show");
+    setTimeout(()=>{
+        finalMessage.style.opacity = "1";
+        finalMessage.style.transform = "scale(1)";
+    },300);
+}
+
+updateCaption(0);
+</script>
+
+</body>
+</html>

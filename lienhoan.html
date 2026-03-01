@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên Hoan Lớp 10L - Kỷ Niệm Thanh Xuân</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        /* ===== TOÀN TRANG ===== */
+        body {
+            margin: 0;
+            font-family: 'Quicksand', Arial, sans-serif;
+            /* Cập nhật ảnh nền lienhoan.jpg */
+            background: linear-gradient(rgba(255, 253, 242, 0.8), rgba(255, 240, 199, 0.8)), 
+                        url('lienhoan.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333; 
+            display: flex; flex-direction: column; min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== HIỆU ỨNG HẠT NẮNG HẠ RƠI ===== */
+        .sun-drop {
+            position: fixed; top: -50px; z-index: 9999; pointer-events: none;
+            animation-name: fall, swing; animation-timing-function: linear, ease-in-out;
+            animation-iteration-count: infinite; 
+            color: #ffbb00;
+            filter: drop-shadow(0 0 8px rgba(255, 187, 0, 0.8));
+        }
+        @keyframes fall { 0% { top: -50px; } 100% { top: 100vh; } }
+        @keyframes swing { 0% { transform: translateX(0px) rotate(0deg); } 50% { transform: translateX(80px) rotate(180deg); } 100% { transform: translateX(0px) rotate(360deg); } }
+
+        /* ===== BANNER ===== */
+        .banner {
+            width: 100%; height: 250px;
+            background: linear-gradient(135deg, rgba(255, 154, 68, 0.9), rgba(252, 96, 118, 0.9)); 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: white; text-align: center;
+            box-shadow: 0 4px 15px rgba(255, 154, 68, 0.4);
+            border-bottom: 5px solid #ffdb58;
+        }
+        .banner h1 {
+            font-family: 'Playfair Display', serif;
+            margin: 0; font-size: 3.5rem; 
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+            /* Sửa lỗi số 10 bị nhỏ */
+            font-variant-numeric: lining-nums;
+        }
+        .banner p { font-size: 1.3rem; margin-top: 10px; font-weight: 600; font-style: italic; text-shadow: 1px 1px 4px rgba(0,0,0,0.2); }
+
+        /* ===== LAYOUT CHÍNH ===== */
+        .container {
+            max-width: 1200px; margin: 40px auto; padding: 0 20px; flex: 1;
+        }
+
+        .card-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px; padding: 40px; margin-bottom: 60px;
+            display: flex; align-items: center; gap: 50px;
+            box-shadow: 0 15px 35px rgba(255, 165, 0, 0.15);
+            border: 2px dashed #ffc107; 
+            position: relative;
+            transition: transform 0.3s;
+        }
+        .card-section:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(255, 165, 0, 0.25); }
+        .card-section:nth-child(even) { flex-direction: row-reverse; }
+
+        /* ===== KHUNG ẢNH TRƯỢT ===== */
+        .image-slider {
+            flex: 1; min-width: 400px; max-width: 550px; height: 380px;
+            position: relative;
+            border: 8px solid #ffe4b5; 
+            border-radius: 30px; 
+            box-shadow: 0 15px 30px rgba(255, 140, 0, 0.2), inset 0 0 20px rgba(255, 228, 181, 0.5);
+            background: #fff; overflow: hidden;
+        }
+        .swiper { width: 100%; height: 100%; }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        .swiper-button-next, .swiper-button-prev {
+            color: #fff !important; transform: scale(0.7);
+            background: rgba(255, 140, 0, 0.8); 
+            width: 50px; height: 50px; border-radius: 50%;
+            border: 2px solid #fff; z-index: 10;
+        }
+        .swiper-pagination-bullet-active { background: #ff8c00 !important; }
+
+        /* ===== VĂN BẢN ===== */
+        .text-content { flex: 1.3; }
+        .text-content h2 {
+            font-family: 'Playfair Display', serif; 
+            color: #e65100; 
+            border-bottom: 2px solid #ffcc00; display: inline-block;
+            margin-bottom: 20px; font-size: 2.2rem; padding-bottom: 5px;
+        }
+        .text-content p { 
+            line-height: 1.8; font-size: 1.15rem; color: #444; text-align: justify;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: rgba(51, 51, 51, 0.98);
+            color: #ffdb58; 
+            text-align: center; padding: 25px 20px; margin-top: auto;
+            border-top: 5px solid #ff9a44;
+        }
+        footer p { margin: 5px 0; font-size: 1.1rem; }
+
+        @media (max-width: 900px) {
+            .card-section, .card-section:nth-child(even) { flex-direction: column; text-align: center; }
+            .image-slider { max-width: 100%; min-width: auto; height: 300px; }
+            .banner h1 { font-size: 2.2rem; }
+        }
+        .glitter-btn {
+  background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3, #48dbfb);
+  background-size: 300% 300%;
+  border: none;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 16px 45px;
+  border-radius: 60px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.7), 0 0 40px rgba(255, 223, 0, 0.5), 0 0 60px rgba(72, 219, 251, 0.5);
+  animation: glitter 1.5s ease-in-out infinite, gradientShift 4s ease infinite;
+  transition: transform 0.3s, box-shadow 0.3s;
+  letter-spacing: 1px;
+  border: 2px solid rgba(255,255,255,0.3);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.glitter-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 30px rgba(255, 105, 180, 0.9), 0 0 60px rgba(255, 223, 0, 0.8), 0 0 90px rgba(72, 219, 251, 0.8);
+}
+
+@keyframes glitter {
+  0% { opacity: 0.8; text-shadow: 0 0 5px #fff; }
+  50% { opacity: 1; text-shadow: 0 0 20px #fff, 0 0 30px #ff0; }
+  100% { opacity: 0.8; text-shadow: 0 0 5px #fff; }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+    </style>
+</head>
+<body>
+
+<div id="sun-container"></div>
+
+<div class="banner">
+    <h1>LIÊN HOAN LỚP 10L</h1>
+    <p>Lưu giữ những khoảnh khắc thanh xuân rực rỡ</p>
+</div>
+
+<div class="container">
+    <div class="card-section">
+        <div class="image-slider">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="c1.jpg" alt="Ảnh 1"></div>
+                    <div class="swiper-slide"><img src="c2.jpg" alt="Ảnh 2"></div>
+                    <div class="swiper-slide"><img src="c3.jpg" alt="Ảnh 3"></div>
+                    <div class="swiper-slide"><img src="c4.jpg" alt="Ảnh 4"></div>
+                    <div class="swiper-slide"><img src="c5.jpg" alt="Ảnh 5"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+        <div class="text-content">
+            <h2>🎉 Rộn Ràng Chuẩn Bị</h2>
+            <p>Bữa liên hoan cùng lớp 10L hôm ấy thật sự là một ngày đặc biệt mà chúng mình sẽ luôn nhớ mãi. Ngay từ khi mọi người còn đang chuẩn bị, không khí đã rộn ràng tiếng cười nói. Những gương mặt quen thuộc hằng ngày bỗng trở nên rạng rỡ hơn, ai cũng háo hức, tay bưng đĩa, tay xếp bàn, vừa làm vừa trêu đùa nhau. Chỉ là một buổi tụ họp giản dị thôi, nhưng lại chứa đựng biết bao sự mong chờ và niềm vui.</p>
+        </div>
+    </div>
+
+    <div class="card-section">
+        <div class="image-slider">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="c6.jpg" alt="Ảnh 6"></div>
+                    <div class="swiper-slide"><img src="c7.jpg" alt="Ảnh 7"></div>
+                    <div class="swiper-slide"><img src="c8.jpg" alt="Ảnh 8"></div>
+                    <div class="swiper-slide"><img src="c9.jpg" alt="Ảnh 9"></div>
+                    <div class="swiper-slide"><img src="c10.jpg" alt="Ảnh 10"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+        <div class="text-content">
+            <h2>🥂 Tiệc Vui Bên Nhau</h2>
+            <p>Khi mọi người cùng ngồi lại bên nhau, bữa ăn bắt đầu trong tiếng cụng ly chúc mừng và những câu chuyện nối dài không dứt. Tụi mình kể về những bài kiểm tra “khó nhằn”, những lần bị thầy cô gọi bất ngờ, rồi cả những khoảnh khắc dở khóc dở cười trong lớp. Món ăn không hề sang trọng, nhưng ai cũng ăn rất ngon miệng, có lẽ vì điều làm nên hương vị đặc biệt chính là tình bạn chân thành và sự vô tư của tuổi học trò. Nhìn từng đĩa thức ăn được chuyền tay nhau, từng nụ cười nở trên môi, mình cảm nhận rõ ràng sự gắn kết ấm áp của tập thể 10L.</p>
+        </div>
+    </div>
+
+    <div class="card-section">
+        <div class="image-slider">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="c11.jpg" alt="Ảnh 11"></div>
+                    <div class="swiper-slide"><img src="c12.jpg" alt="Ảnh 12"></div>
+                    <div class="swiper-slide"><img src="c13.jpg" alt="Ảnh 13"></div>
+                    <div class="swiper-slide"><img src="c14.jpg" alt="Ảnh 14"></div>
+                    <div class="swiper-slide"><img src="c15.jpg" alt="Ảnh 15"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+        <div class="text-content">
+            <h2>✨ Kỷ Niệm Khó Quên</h2>
+            <p>Khi buổi liên hoan dần khép lại, trong lòng mình bỗng dâng lên một cảm xúc khó tả. Vui vì đã có một ngày trọn vẹn bên bạn bè, nhưng cũng xen lẫn chút bâng khuâng vì biết rằng những khoảnh khắc như thế này sẽ không kéo dài mãi. Lớp 10L với mình không chỉ là nơi học tập, mà thật sự là một gia đình nhỏ – nơi có tiếng cười, có sẻ chia và có những kỷ niệm đẹp đẽ của tuổi thanh xuân. Dù thời gian có trôi qua, mình tin rằng buổi liên hoan hôm ấy sẽ mãi là một ký ức xúc động, vui vẻ và khó quên trong lòng mỗi người.</p>
+        </div>
+    </div>
+</div>
+
+<div style="text-align: center; margin: 30px 0 40px;">
+  <a href="index.html" class="glitter-btn">🏠 Quay về trang chủ</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    var swipers = new Swiper(".mySwiper", {
+        loop: true,
+        autoplay: { delay: 4000, disableOnInteraction: false },
+        pagination: { el: ".swiper-pagination", clickable: true },
+        navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+    });
+
+    const container = document.getElementById('sun-container');
+    const symbols = ['✨', '☀️', '⭐', '🔆', '✧']; 
+    function dropSunParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'sun-drop';
+        particle.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.fontSize = (Math.random() * 12 + 10) + 'px';
+        const duration = Math.random() * 6 + 4;
+        particle.style.animationDuration = `${duration}s, ${duration/2}s`;
+        particle.style.opacity = Math.random() * 0.7 + 0.3;
+        container.appendChild(particle);
+        setTimeout(() => { particle.remove(); }, duration * 1000);
+    }
+    setInterval(dropSunParticle, 250);
+</script>
+
+</body>
+</html>

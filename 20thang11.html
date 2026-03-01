@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tri Ân Thầy Cô - Lớp 10L</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<style>
+    /* ===== TOÀN TRANG ===== */
+    body {
+        margin: 0;
+        font-family: 'Quicksand', Arial, sans-serif;
+        /* Giữ lại ảnh nền của bạn */
+        background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("20thang11.jpg"); 
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-color: #f0f7ff; 
+        color: #2c3e50;
+        display: flex; flex-direction: column; min-height: 100vh;
+        overflow-x: hidden;
+        font-size: 16px; /* Chữ nhỏ lại cho tinh tế */
+    }
+
+    /* ===== HIỆU ỨNG RƠI (Làm nhỏ lại cho đỡ rối) ===== */
+    .petal {
+        position: fixed; top: -50px; z-index: 9999; pointer-events: none;
+        animation-name: fall, swing; animation-timing-function: linear, ease-in-out;
+        animation-iteration-count: infinite; 
+    }
+    @keyframes fall { 0% { top: -50px; } 100% { top: 100vh; } }
+    @keyframes swing { 0% { transform: translateX(0px) rotate(0deg); } 50% { transform: translateX(40px) rotate(180deg); } 100% { transform: translateX(0px) rotate(360deg); } }
+
+    /* ===== BANNER (GỌN GÀNG HƠN) ===== */
+    .banner {
+        width: 100%; height: 220px; /* Chiều cao vừa phải */
+        background: rgba(0, 123, 255, 0.7); 
+        backdrop-filter: blur(8px); 
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        color: #fff; text-align: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border-bottom: 5px solid #fff3cd; 
+    }
+    .banner h1 {
+        font-family: 'Playfair Display', serif;
+        margin: 0; font-size: 3rem; 
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+    }
+    .banner p { 
+        font-size: 1.2rem; 
+        margin-top: 10px; 
+        color: #fff3cd;
+    }
+
+    /* ===== LAYOUT CHÍNH (KHUNG VỪA VẶN) ===== */
+    .container {
+        max-width: 1100px; /* Thu hẹp khung lại cho cân đối */
+        margin: 40px auto; padding: 0 20px; flex: 1;
+    }
+
+    .card-section {
+        background: rgba(255, 255, 255, 0.95); /* Trắng sữa nhẹ nhàng */
+        border-radius: 20px; 
+        padding: 35px; 
+        margin-bottom: 40px;
+        display: flex; align-items: center; gap: 40px; 
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        border: 1px solid #e1f0ff;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease-out;
+    }
+    
+    .card-section.is-visible { opacity: 1; transform: translateY(0); }
+    .card-section:hover { transform: scale(1.01); border-color: #007bff; }
+    .card-section:nth-child(even) { flex-direction: row-reverse; }
+
+    /* ===== ẢNH (GIẢM KÍCH THƯỚC) ===== */
+    .image-box {
+        flex: 1; min-width: 300px; 
+        border-radius: 15px; overflow: hidden;
+        border: 5px solid #fff;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .image-box img { width: 100%; display: block; object-fit: cover; height: 320px; } 
+
+    .swiper { width: 100%; height: 320px; }
+
+    /* ===== CHỮ (DỄ ĐỌC) ===== */
+    .text-content { flex: 1.2; }
+    .text-content h2 {
+        font-family: 'Playfair Display', serif; color: #007bff;
+        font-size: 1.8rem; margin-bottom: 15px;
+    }
+    .text-content p { 
+        line-height: 1.6; font-size: 1.05rem; color: #444; text-align: justify;
+        margin-bottom: 10px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+        background: #2c3e50; 
+        color: #f8f9fa;
+        text-align: center; padding: 30px 20px;
+        border-top: 4px solid #fff3cd; 
+    }
+    .footer-info { font-size: 1rem; }
+    .footer-copyright { margin-top: 10px; color: #bdc3c7; font-size: 0.9rem; }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+        .card-section { flex-direction: column !important; padding: 20px; gap: 20px; }
+        .image-box { min-width: 100%; }
+        .image-box img, .swiper { height: 250px; }
+        .banner h1 { font-size: 2rem; }
+    }
+.glitter-btn {
+  background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3, #48dbfb);
+  background-size: 300% 300%;
+  border: none;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 16px 45px;
+  border-radius: 60px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.7), 0 0 40px rgba(255, 223, 0, 0.5), 0 0 60px rgba(72, 219, 251, 0.5);
+  animation: glitter 1.5s ease-in-out infinite, gradientShift 4s ease infinite;
+  transition: transform 0.3s, box-shadow 0.3s;
+  letter-spacing: 1px;
+  border: 2px solid rgba(255,255,255,0.3);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.glitter-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 30px rgba(255, 105, 180, 0.9), 0 0 60px rgba(255, 223, 0, 0.8), 0 0 90px rgba(72, 219, 251, 0.8);
+}
+
+@keyframes glitter {
+  0% { opacity: 0.8; text-shadow: 0 0 5px #fff; }
+  50% { opacity: 1; text-shadow: 0 0 20px #fff, 0 0 30px #ff0; }
+  100% { opacity: 0.8; text-shadow: 0 0 5px #fff; }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="petal-container"></div>
+
+<div class="banner">
+    <h1>TRI ÂN THẦY CÔ</h1>
+    <p>Chào mừng Ngày Nhà giáo Việt Nam 20/11</p>
+</div>
+
+<div class="container">
+
+    <div class="card-section">
+        <div class="image-box">
+            <img src="b5.jpg" alt="Chiếc bánh kem">
+        </div>
+        <div class="text-content">
+            <h2>🎂 Món Quà Nhỏ, Yêu Thương Lớn</h2>
+            <p>Ngày 20 tháng 11 đầu tiên của lớp 10L đã để lại trong chúng em và cả lớp những cảm xúc thật đặc biệt. Đó không chỉ là ngày tri ân thầy cô mà còn là dịp để chúng em gửi gắm tình cảm, sự kính trọng và lòng biết ơn của mình theo một cách giản dị nhưng chân thành nhất.</p>
+            <p>Để chào mừng ngày Nhà giáo Việt Nam, cả lớp đã cùng nhau chuẩn bị một chiếc bánh kem nhỏ xinh nhưng chứa đựng rất nhiều yêu thương. Chiếc bánh được trang trí cẩn thận, tươi sáng với dòng chữ chúc mừng thầy cô nổi bật ở giữa. Nhìn chiếc bánh, ai cũng cảm nhận được sự chu đáo và tấm lòng của cả tập thể lớp dành cho những người đã luôn tận tâm dạy dỗ chúng em từng ngày.</p>
+        </div>
+    </div>
+
+    <div class="card-section">
+        <div class="image-box">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="b1.jpg"></div>
+                    <div class="swiper-slide"><img src="b2.jpg"></div>
+                    <div class="swiper-slide"><img src="b3.jpg"></div>
+                    <div class="swiper-slide"><img src="b4.jpg"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+        <div class="text-content">
+            <h2>💝 Gửi Gắm Tình Cảm Chân Thành</h2>
+            <p>Vì điều kiện không cho phép tất cả cùng đi, nên chỉ có một vài bạn đại diện của lớp mang chiếc bánh đến tặng cô Tuyên, thầy Danh, cô Lan và thầy Luân. Tuy số người đi không đông đủ, nhưng trong từng bước chân, từng lời chúc gửi tới thầy cô đều mang theo tình cảm của cả lớp. Chiếc bánh không chỉ là một món quà, mà còn là lời cảm ơn thầm lặng của chúng em dành cho những bài giảng tận tình, những lời nhắc nhở ân cần và cả sự bao dung mà thầy cô đã dành cho chúng em suốt thời gian qua.</p>
+            <p>Khi chia bánh cho các thầy cô, chúng em cảm thấy vô cùng xúc động. Mỗi phần bánh được trao đi như một phần tấm lòng được gửi gắm. Nhìn nụ cười hiền hậu của thầy cô lúc nhận bánh, chúng em càng hiểu rằng điều quan trọng nhất không nằm ở giá trị vật chất, mà ở tình cảm chân thành xuất phát từ trái tim.</p>
+        </div>
+    </div>
+
+    <div class="card-section match-height">
+        <div class="image-box">
+            <img src="b6.jpg" alt="Kỷ niệm">
+        </div>
+        <div class="text-content">
+            <h2>📖 Kỷ Niệm Mãi Lưu Giữ</h2>
+            <p>Ngày 20 tháng 11 khép lại, nhưng những cảm xúc tốt đẹp thì vẫn còn nguyên vẹn. Chiếc bánh kem hôm ấy sẽ trở thành một kỷ niệm đẹp, nhắc nhở chúng em phải luôn biết trân trọng, yêu quý và cố gắng học tập thật tốt để không phụ lòng thầy cô. Với chúng em, thầy cô không chỉ là người dạy chữ, mà còn là người dạy làm người, những người đã thắp sáng con đường tri thức bằng cả tâm huyết và yêu thương.</p>
+        </div>
+    </div>
+
+</div>
+
+<div style="text-align: center; margin: 30px 0 40px;">
+  <a href="index.html" class="glitter-btn">🏠 Quay về trang chủ</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        loop: true, autoplay: { delay: 3500 },
+        pagination: { el: ".swiper-pagination", clickable: true },
+        navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) { entry.target.classList.add('is-visible'); }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.card-section').forEach(card => observer.observe(card));
+
+    const container = document.getElementById('petal-container');
+    const symbols = ['🎂', '❤️', '💖', '💝', '✨'];
+    function dropIcon() {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.fontSize = (Math.random() * 10 + 15) + 'px'; /* Nhỏ hơn */
+        const duration = Math.random() * 5 + 5;
+        petal.style.animationDuration = `${duration}s, ${duration/2}s`;
+        petal.style.opacity = Math.random() * 0.5 + 0.3; /* Nhạt hơn */
+        container.appendChild(petal);
+        setTimeout(() => { petal.remove(); }, duration * 1000);
+    }
+    setInterval(dropIcon, 500); /* Chậm hơn */
+</script>
+
+</body>
+</html>

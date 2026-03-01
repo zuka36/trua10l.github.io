@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>lớp 10L</title>
+
+<style>
+/*Tổng thể*/
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
+
+/*BANNER*/
+.banner {
+    width: 100%;
+    height: 300px;
+    background-image: url("banner.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+/*LAYOUT*/
+.container {
+    display: flex;
+    gap: 20px;
+    padding: 30px;
+}
+
+/* ===== NỘI DUNG TRÁI*/
+.main-content {
+    flex: 3;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+}
+
+.section {
+    margin-bottom: 50px;
+}
+
+.section h2 {
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 5px;
+}
+
+/* ===== CỘT PHẢI ===== */
+.sidebar {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    height: fit-content;
+}
+
+.highlight {
+    margin-top: 15px;
+    padding: 10px;
+    background: #f0f8f5;
+    border-left: 4px solid #4CAF50;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* ===== SƠ ĐỒ LỚP ===== */
+.classroom {
+    margin-top: 30px;
+    width: 90%;
+    height: 480px;
+    border: 4px solid #333;
+    position: relative;
+    background: white;
+    padding: 20px;
+}
+
+.teacher {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #ffd966;
+    padding: 12px;
+    border: 2px solid #333;
+    font-weight: bold;
+}
+
+.door {
+    position: absolute;
+    background: #a4c2f4;
+    padding: 8px;
+    border: 2px solid #333;
+    font-size: 13px;
+}
+
+.door-front { top: 20px; left: 0; }
+.door-back { bottom: 20px; right: 0; }
+
+.desk-area {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 90px;
+}
+
+.column {
+    display: grid;
+    grid-template-rows: repeat(5, auto);
+    gap: 15px;
+}
+
+.desk {
+    display: flex;
+    gap: 8px;
+}
+
+/* ===== STUDENT BUBBLE STYLE ===== */
+.student {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(145deg, #b6d7a8, #8fc5a0);
+    border: 2px solid #2d5a3b;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: #1a3b2e;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #2d5a3b, 0 8px 12px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.student:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 0 #2d5a3b, 0 12px 16px rgba(0,0,0,0.2);
+    background: linear-gradient(145deg, #c3e3b5, #9fd6b0);
+}
+
+.student:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #2d5a3b, 0 5px 8px rgba(0,0,0,0.2);
+}
+
+/* Hiệu ứng bong bóng */
+.student::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 8px;
+    width: 10px;
+    height: 10px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+/* ===== POPUP ===== */
+.overlay {
+    position: fixed;
+    top:0; left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.7);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.popup {
+    width:75%;
+    height:75%;
+    background:white;
+    border-radius:10px;
+    padding:30px;
+    display:flex;
+    position:relative;
+    font-size: 22px;
+    animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.popup-left {
+    width: 33%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.popup-left img {
+    max-width:100%;
+    max-height:100%;
+    border-radius:10px;
+}
+
+.popup-right {
+    width: 67%;
+    padding-left: 40px;
+}
+
+/* ===== CLOSE BUTTON TO ===== */
+.close-btn {
+    position:absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 48px;
+    font-weight: bold;
+    color: #ff4444;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+    z-index: 10000;
+}
+
+.close-btn:hover {
+    transform: scale(1.1);
+    background: white;
+    color: #ff0000;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+.close-btn:active {
+    transform: scale(0.95);
+}
+
+/* ===== Style cho các nút sự kiện ===== */
+.event-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.event-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(145deg, #ffb347, #ff8c00);
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 50px;
+    box-shadow: 0 6px 0 #b85e00, 0 8px 12px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    flex: 1 0 auto;
+    max-width: 200px;
+}
+
+.event-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 0 #b85e00, 0 12px 16px rgba(0,0,0,0.2);
+    background: linear-gradient(145deg, #ffc064, #ffa229);
+}
+
+.event-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #b85e00, 0 5px 8px rgba(0,0,0,0.2);
+}
+
+/* ===== Style cho nút mặt cười ===== */
+.smile-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #fff3cd;
+    border: 2px solid #ffeeba;
+    border-radius: 50px;
+    padding: 12px 20px;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #856404;
+    font-weight: bold;
+    font-size: 18px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.smile-link:hover {
+    background: #ffe69b;
+    transform: scale(1.02);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+.smile-link:active {
+    transform: scale(0.98);
+}
+
+.smile-emoji {
+    font-size: 32px;
+}
+
+/* ===== HIỆU ỨNG VÀNG LẤP LÁNH CHO NÚT "Các hình ảnh vui nhộn" ===== */
+.smile-link {
+    background: linear-gradient(145deg, #fff3cd, #ffe69b, #ffd966, #ffe69b, #fff3cd);
+    background-size: 300% 300%;
+    animation: glitter 2.5s infinite;
+    box-shadow: 0 0 15px gold, 0 0 30px #ffcc00, 0 4px 6px rgba(0,0,0,0.1);
+    border: 2px solid #ffb700;
+    color: #5e3a00;
+    font-weight: bold;
+    position: relative;
+    z-index: 1;
+}
+
+/* Tạo thêm các hạt sáng lấp lánh nhỏ */
+.smile-link::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8) 2px, transparent 4px),
+                radial-gradient(circle at 70% 70%, rgba(255,255,255,0.9) 1px, transparent 3px),
+                radial-gradient(circle at 90% 20%, rgba(255,255,100,0.7) 2px, transparent 5px);
+    background-size: 60px 60px;
+    border-radius: 50px;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.6;
+    animation: sparkle 3s infinite;
+}
+
+@keyframes glitter {
+    0% { background-position: 0% 0%; }
+    25% { background-position: 100% 0%; }
+    50% { background-position: 100% 100%; }
+    75% { background-position: 0% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+@keyframes sparkle {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+
+/* Giữ lại hiệu ứng hover mạnh hơn */
+.smile-link:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px gold, 0 0 50px #ffaa00, 0 6px 10px rgba(0,0,0,0.2);
+    background: linear-gradient(145deg, #ffe69b, #ffd966, #ffcc00, #ffd966, #ffe69b);
+    background-size: 300% 300%;
+}
+</style>
+</head>
+
+<body>
+
+<!-- BANNER -->
+<div class="banner"></div>
+
+<div class="container">
+
+<!-- ===== CỘT TRÁI ===== -->
+<div class="main-content">
+
+<div class="section">
+<h2>I. Sơ đồ lớp 10L</h2>
+
+<div class="classroom">
+    <div class="door door-front">Cửa trước</div>
+    <div class="door door-back">Cửa sau</div>
+    <div class="teacher">BÀN GV</div>
+
+    <div class="desk-area">
+
+        <!-- CỘT 1 -->
+        <div class="column">
+            <div class="desk">
+                <div class="student" onclick="document.getElementById('popup1').style.display='flex'">10</div>
+                <div class="student" onclick="document.getElementById('popup2').style.display='flex'">8</div>
+                <div class="student" onclick="document.getElementById('popup3').style.display='flex'">31</div>
+                <div class="student" onclick="document.getElementById('popup4').style.display='flex'">5</div>
+            </div>
+            <div class="desk">
+                <div class="student" onclick="document.getElementById('popup5').style.display='flex'">14</div>
+                <div class="student" onclick="document.getElementById('popup6').style.display='flex'">20</div>
+                <div class="student" onclick="document.getElementById('popup7').style.display='flex'">24</div>
+                <div class="student" onclick="document.getElementById('popup8').style.display='flex'">12</div>
+            </div>
+            <div class="desk">
+                <div class="student" onclick="document.getElementById('popup9').style.display='flex'">22</div>
+                <div class="student" onclick="document.getElementById('popup10').style.display='flex'">26</div>
+                <div class="student" onclick="document.getElementById('popup13').style.display='flex'">3</div>
+                <div class="student" onclick="document.getElementById('popup12').style.display='flex'">23</div>
+            </div>
+            <div class="desk">
+                <div class="student" onclick="document.getElementById('popup14').style.display='flex'">17</div>
+                <div class="student" onclick="document.getElementById('popup15').style.display='flex'">19</div>
+                <div class="student" onclick="document.getElementById('popup16').style.display='flex'">27</div>
+                <div class="student" style="opacity:0; pointer-events:none;"></div>
+            </div>
+            <div class="desk">
+               <div class="student" onclick="document.getElementById('popup17').style.display='flex'">11</div>
+               <div class="student" onclick="document.getElementById('popup11').style.display='flex'">32</div>
+               <div class="student" style="opacity:0; pointer-events:none;"></div>
+               <div class="student" style="opacity:0; pointer-events:none;"></div>
+            </div>
+        </div>
+
+        <!-- CỘT 2 -->
+        <div class="column">
+            <div class="desk">
+                <div class="student" onclick="document.getElementById('popup21').style.display='flex'">9</div>
+                <div class="student" onclick="document.getElementById('popup22').style.display='flex'">13</div>
+                <div class="student" onclick="document.getElementById('popup23').style.display='flex'">16</div>
+                <div class="student" onclick="document.getElementById('popup24').style.display='flex'">34</div>
+            </div>
+            <div class="desk">
+                <div class="student" onclick="document.getElementById('popup25').style.display='flex'">21</div>
+                <div class="student" onclick="document.getElementById('popup26').style.display='flex'">4</div>
+                <div class="student" onclick="document.getElementById('popup27').style.display='flex'">29</div>
+                <div class="student" onclick="document.getElementById('popup28').style.display='flex'">25</div>
+            </div>
+            <div class="desk">
+                <div class="student" onclick="document.getElementById('popup29').style.display='flex'">6</div>
+                <div class="student" onclick="document.getElementById('popup30').style.display='flex'">33</div>
+                <div class="student" onclick="document.getElementById('popup32').style.display='flex'">28</div>
+                <div class="student" style="opacity:0; pointer-events:none;"></div>
+            </div>
+            <div class="desk">
+                <div class="student" onclick="document.getElementById('popup33').style.display='flex'">1</div>
+                <div class="student" onclick="document.getElementById('popup34').style.display='flex'">2</div>
+                <div class="student" onclick="document.getElementById('popup35').style.display='flex'">7</div>
+                <div class="student" onclick="document.getElementById('popup36').style.display='flex'">18</div>
+            </div>
+            <div class="desk">
+                <div class="student" onclick="document.getElementById('popup37').style.display='flex'">30</div>
+                <div class="student" onclick="document.getElementById('popup31').style.display='flex'">15</div>
+                <div class="student" style="opacity:0; pointer-events:none;"></div>
+                <div class="student" style="opacity:0; pointer-events:none;"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<!-- SỬA PHẦN II: Những kỷ niệm lớp 10L + 5 nút sự kiện -->
+<div class="section">
+<h2>II. Những kỷ niệm lớp 10L</h2>
+<!-- 5 ô sự kiện -->
+<div class="event-buttons">
+    <a href="20thang10.html" class="event-btn">20 tháng 10 - Ngày Phụ Nữ Việt Nam</a>
+    <a href="20thang11.html" class="event-btn">20 tháng 11 - Ngày Nhà giáo Việt Nam</a>
+    <a href="vuixuan.html" class="event-btn">XUÂN GIÁP THÌN</a>
+    <a href="8thang3.html" class="event-btn">8 tháng 3 - Ngày Quốc tế Phụ nữ</a>
+    <a href="lienhoan.html" class="event-btn">LIÊN HOAN CUỐI NĂM</a>
+</div>
+</div>
+
+<!-- ĐÃ XÓA PHẦN III (Kết luận) -->
+
+</div>
+
+<!-- ===== CỘT PHẢI ===== -->
+<div class="sidebar">
+<h3>⭐ Những khoảnh khắc hài hước</h3>
+<!-- Thay các highlight bằng một ô mặt cười link -->
+<a href="Các hình ảnh vui nhộn.html" class="smile-link">
+    <span class="smile-emoji">🤣</span> Các hình ảnh vui nhộn
+</a>
+<!-- THÊM HÌNH ẢNH THUOC.JPG Ở DƯỚI, KHÔNG LẤN SANG SƠ ĐỒ LỚP -->
+<br>
+<img src="thuoc.jpg" alt="Hình ảnh vui nhộn" style="width:100%; max-width:350px; margin-top:15px; border-radius:8px; display:block;"></br>
+</div>
+</div>
+
+<style>
+/* === Footer đơn giản, chữ phát sáng nhẹ, hòm thư một màu không lòe loẹt === */
+footer.footer {
+  background: #1a1a2e;            /* Màu nền tối đồng nhất */
+  color: #f0f0f0;
+  font-family: "Times New Roman", serif;
+  padding: 18px 18px;
+  box-sizing: border-box;
+  border-top: 2px solid #2a2a4a;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.6);
+}
+
+/* Hiệu ứng phát sáng nhẹ cho toàn bộ chữ trong footer (giữ nguyên màu) */
+.footer * {
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.footer-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Các cột giữ layout cũ */
+.footer-col, .feedback-col {
+  box-sizing: border-box;
+  padding: 0 12px;
+}
+
+.footer-col.contact { flex: 0 0 30%; }
+.footer-col.authors { flex: 0 0 30%; }
+.feedback-col { flex: 0 0 34%; }
+
+/* Tất cả chữ đều căn trái */
+.footer-col, 
+.feedback-col,
+.footer-col h2, 
+.feedback-col h2,
+.footer-col p,
+.footer-col.authors p,
+.feedback-col label,
+.feedback-col input,
+.feedback-col textarea,
+.feedback-col button {
+  text-align: left;
+}
+
+/* Tiêu đề không còn hiệu ứng nhấp nháy, chỉ giữ màu trắng phát sáng nhẹ */
+.footer-col h2, .feedback-col h2 {
+  font-size: 28px;
+  margin: 0 0 14px 0;
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  letter-spacing: 1px;
+  /* Bỏ animation flicker */
+}
+
+/* Nội dung chữ màu trắng sáng tự nhiên */
+.footer-col p {
+  margin: 6px 0;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #e0e0e0;
+}
+
+.footer-col.authors p {
+  margin: 6px 0;
+  font-size: 18px;
+  color: #e0e0e0;
+}
+
+/* === HÒM THƯ GÓP Ý ĐƠN GIẢN 1 MÀU (không neon) === */
+.feedback-col label {
+  display: block;
+  font-size: 16px;
+  margin: 12px 0 6px;
+  color: #cccccc;
+}
+
+/* Input và textarea phong cách tối giản, 1 màu */
+.feedback-col input,
+.feedback-col textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #444466;
+  background: #25253a;
+  font-size: 15px;
+  box-sizing: border-box;
+  color: #f0f0f0;
+  outline: none;
+  transition: 0.2s;
+  box-shadow: none;
+}
+
+.feedback-col input:focus,
+.feedback-col textarea:focus {
+  border-color: #6a6a9e;
+  background: #2f2f4a;
+}
+
+/* textarea riêng */
+.feedback-col textarea {
+  height: 110px;
+  resize: vertical;
+  margin-bottom: 8px;
+}
+
+/* Nút gửi màu đồng bộ, không hiệu ứng chói */
+.feedback-col button {
+  margin-top: 8px;
+  padding: 10px 24px;
+  background: #4a4a7a;
+  color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background 0.2s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+}
+
+.feedback-col button:hover {
+  background: #5f5f9a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive giữ nguyên */
+@media (max-width: 800px) {
+  .footer-row {
+    flex-direction: column;
+    gap: 18px;
+    padding: 0 6px;
+  }
+  .footer-col.contact,
+  .footer-col.authors,
+  .feedback-col {
+    flex: 1 0 auto;
+    width: 100%;
+    padding: 0;
+  }
+}
+
+</style>
+
+<footer class="footer">
+
+  <div class="footer-row">
+
+    <!-- CỘT 1: THÔNG TIN LIÊN HỆ (sát lề trái trong footer) -->
+    <div class="footer-col contact">
+      <h2>Thông tin liên hệ:</h2>
+      <p>📞 0359448584</p>
+      <p>✉️23_038@hungvuong.sgdbinhduong.edu.vn</p>
+
+      <h2>Ngày cập nhật mới nhất:</h2>
+      <p>28/02/2026</p>
+    </div>
+
+    <!-- CỘT 2: NHÓM TÁC GIẢ (cột giữa, nhưng tên căn lề trái bên trong cột) -->
+    <div class="footer-col authors">
+      <h2>Nhóm tác giả:</h2>
+      <p>Lê Nguyễn Hoàng Cường</p>
+      <p>Hà Huy Tiến</p>
+      <p>Đoàn Minh Hiếu</p>
+      <p>Từ Lê Đức Thuận</p>
+      <p>Trương Quang Hiếu</p>
+    </div>
+
+    <!-- CỘT 3: HÒM THƯ GÓP Ý (bên phải) đã được làm đơn giản -->
+    <div class="feedback-col">
+      <h2>Hòm thư góp ý:</h2>
+
+      <label for="email">Email:</label>
+      <input id="email" type="email" placeholder="Nhập email của bạn">
+
+      <label for="feedback">Gửi góp ý của bạn tại đây nhé:</label>
+      <textarea id="feedback" placeholder="Nhập nội dung góp ý"></textarea>
+
+      <button type="button">Gửi</button>
+    </div>
+
+  </div>
+</footer>
+<!-- POPUP 1 -->
+<div class="overlay" id="popup1">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup1').style.display='none'">✖</div>
+<div class="popup-left"><img src="10.jpg"></div>
+<div class="popup-right">
+<h2>Phan Minh Đăng</h2>
+<p><b>Ngày sinh:</b> 28/09/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> boy đẹp chai học dỏi chơi thể thao hay</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 2 -->
+<div class="overlay" id="popup2">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup2').style.display='none'">✖</div>
+<div class="popup-left"><img src="8.jpg"></div>
+<div class="popup-right">
+<h2>Luyện Văn Cường</h2>
+<p><b>Ngày sinh:</b> 14/04/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Chơi lắm, nói nhiều, thủ lĩnh thẻ bài</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 3 -->
+<div class="overlay" id="popup3">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup3').style.display='none'">✖</div>
+<div class="popup-left"><img src="31.jpg"></div>
+<div class="popup-right">
+<h2>Hà Đức Trí</h2>
+<p><b>Ngày sinh:</b> 10/07/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Sigma</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 4 -->
+<div class="overlay" id="popup4">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup4').style.display='none'">✖</div>
+<div class="popup-left"><img src="5.jpg"></div>
+<div class="popup-right">
+<h2>Đỗ Thị Bảo Châu</h2>
+<p><b>Ngày sinh:</b> 07/05/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Chuyên anh giả dạng </p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 5 -->
+<div class="overlay" id="popup5">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup5').style.display='none'">✖</div>
+<div class="popup-left"><img src="14.jpg"></div>
+<div class="popup-right">
+<h2>Nguyễn Lê Như Hảo</h2>
+<p><b>Ngày sinh:</b> 10/04/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> ước mơ tầm cấp siêu vũ trụ</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 6 -->
+<div class="overlay" id="popup6">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup6').style.display='none'">✖</div>
+<div class="popup-left"><img src="20.jpg"></div>
+<div class="popup-right">
+<h2>Cù Hoàng Khánh Ly</h2>
+<p><b>Ngày sinh:</b> 29/08/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Ly, chùm khu vực Dĩ An</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 7 -->
+<div class="overlay" id="popup7">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup7').style.display='none'">✖</div>
+<div class="popup-left"><img src="25.jpg"></div>
+<div class="popup-right">
+<h2>Bùi Hồng Ngọc</h2>
+<p><b>Ngày sinh:</b> 12/10/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Lớp trưởng, tự tin, xinh gái</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 8 -->
+<div class="overlay" id="popup8">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup8').style.display='none'">✖</div>
+<div class="popup-left"><img src="12.jpg"></div>
+<div class="popup-right">
+<h2>Nguyễn Minh Duy</h2>
+<p><b>Ngày sinh:</b> 11/10/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> dỏi như cún, gì cũng dỏi</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 9 -->
+<div class="overlay" id="popup9">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup9').style.display='none'">✖</div>
+<div class="popup-left"><img src="22.jpg"></div>
+<div class="popup-right">
+<h2>Nguyễn Đặng Khánh Minh</h2>
+<p><b>Ngày sinh:</b> 29/09/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Ít nói, siêu tốt bụng, sống tình cảm nội tâm, đời sống tinh thần vật chất đạt chuẩn 5 sao</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 10 -->
+<div class="overlay" id="popup10">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup10').style.display='none'">✖</div>
+<div class="popup-left"><img src="26.jpg"></div>
+<div class="popup-right">
+<h2>Nguyễn Hồng Phú</h2>
+<p><b>Ngày sinh:</b> 16/11/2008</p>
+<p><b>Ấn tượng đầu tiên: </b> M-ilk, ngao</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 11 -->
+<div class="overlay" id="popup11">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup11').style.display='none'">✖</div>
+<div class="popup-left"><img src="32.jpg"></div>
+<div class="popup-right">
+<h2>Nguyễn Nhật Trường</h2>
+<p><b>Ngày sinh:</b> 03/01/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> chơi free fire cháy, nói câu nào tự nổ câu đó</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 12 -->
+<div class="overlay" id="popup12">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup12').style.display='none'">✖</div>
+<div class="popup-left"><img src="23.jpg"></div>
+<div class="popup-right">
+<h2>Ngô Lâm Nguyên</h2>
+<p><b>Ngày sinh:</b> 27/01/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Hiền, dhtw, dù chỉ cùng nhau 1 năm nhưng đủ để cảm nhận được tình cảm Nguyn dành cho tụi tui.<3 </p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 13 -->
+<div class="overlay" id="popup13">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup13').style.display='none'">✖</div>
+<div class="popup-left"><img src="3.jpg"></div>
+<div class="popup-right">
+<h2>Phạm Trần Vân Anh </h2>
+<p><b>Ngày sinh:</b> 21/09/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> giỏi ngoại ngữ</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 14 -->
+<div class="overlay" id="popup14">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup14').style.display='none'">✖</div>
+<div class="popup-left"><img src="17.jpg"></div>
+<div class="popup-right">
+<h2>Trì Đỗ Danh Huy</h2>
+<p><b>Ngày sinh:</b> 31/05/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Nam chính phim Ngôn tình (*note: Đây là ấn tượng đầu)</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 15 -->
+<div class="overlay" id="popup15">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup15').style.display='none'">✖</div>
+<div class="popup-left"><img src="19.jpg"></div>
+<div class="popup-right">
+<h2>Nguyễn Trương Tuấn Kiệt</h2>
+<p><b>Ngày sinh:</b> 20/01/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> pick me gỉl, bựa, học dỏi úp sọt cả lớp, bựa</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 16 -->
+<div class="overlay" id="popup16">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup16').style.display='none'">✖</div>
+<div class="popup-left"><img src="27.jpg"></div>
+<div class="popup-right">
+<h2>Lương Gia Phương</h2>
+<p><b>Ngày sinh:</b> 29/05/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Nói nhiều nói lắm</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 17 -->
+<div class="overlay" id="popup17">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup17').style.display='none'">✖</div>
+<div class="popup-left"><img src="11.jpg"></div>
+<div class="popup-right">
+<h2>Nguyễn Trọng Đô</h2>
+<p><b>Ngày sinh:</b> 20/04/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> ny ntr, hiền lành, thân thiện với cả lớp</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 21 -->
+<div class="overlay" id="popup21">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup21').style.display='none'">✖</div>
+<div class="popup-left"><img src="9.jpg"></div>
+<div class="popup-right">
+<h2>Nguyễn Hoàng Hải Đăng</h2>
+<p><b>Ngày sinh:</b> 02/05/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Tưởng giáo viên văn quê miền Tây</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 22 -->
+<div class="overlay" id="popup22">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup22').style.display='none'">✖</div>
+<div class="popup-left"><img src="13.jpg"></div>
+<div class="popup-right">
+<h2>Vũ Trường Giang</h2>
+<p><b>Ngày sinh:</b> 28/06/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> đeo khẩu trang</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 23 -->
+<div class="overlay" id="popup23">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup23').style.display='none'">✖</div>
+<div class="popup-left"><img src="16.jpg"></div>
+<div class="popup-right">
+<h2>Trương Quang Hiếu</h2>
+<p><b>Ngày sinh:</b> 03/02/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Học bá cân kèo cả lớp, dthw nói nhìu</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 24 -->
+<div class="overlay" id="popup24">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup24').style.display='none'">✖</div>
+<div class="popup-left"><img src="34.jpg"></div>
+<div class="popup-right">
+<h2>Nguyễn Thanh Tú</h2>
+<p><b>Ngày sinh:</b> 28/07/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Số O2 nạp vào nhiều</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 25 -->
+<div class="overlay" id="popup25">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup25').style.display='none'">✖</div>
+<div class="popup-left"><img src="21.jpg"></div>
+<div class="popup-right">
+<h2>Nguyễn Thùy Mai</h2>
+<p><b>Ngày sinh:</b> 04/03/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> chục cái chức vụ</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 26 -->
+<div class="overlay" id="popup26">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup26').style.display='none'">✖</div>
+<div class="popup-left"><img src="4.jpg"></div>
+<div class="popup-right">
+<h2>Vũ Gia Bảo</h2>
+<p><b>Ngày sinh:</b> 29/02/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Tên + Ngày sinh</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 27 -->
+<div class="overlay" id="popup27">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup27').style.display='none'">✖</div>
+<div class="popup-left"><img src="29.jpg"></div>
+<div class="popup-right">
+<h2>Từ Lê Đức Thuận</h2>
+<p><b>Ngày sinh:</b> 23/02/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Pétrus Ký, joke nhạt</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 28 -->
+<div class="overlay" id="popup28">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup28').style.display='none'">✖</div>
+<div class="popup-left"><img src="24.jpg"></div>
+<div class="popup-right">
+<h2>Nguyễn Hữu Tấn Phát</h2>
+<p><b>Ngày sinh:</b> 25/01/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Nói nhìu, thân thiện</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 29 -->
+<div class="overlay" id="popup29">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup29').style.display='none'">✖</div>
+<div class="popup-left"><img src="6.jpg"></div>
+<div class="popup-right">
+<h2>Phạm Quang Chiến</h2>
+<p><b>Ngày sinh:</b> 10/02/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> có bồ sớm nhất lớp, cái cửa</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 30 -->
+<div class="overlay" id="popup30">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup30').style.display='none'">✖</div>
+<div class="popup-left"><img src="33.jpg"></div>
+<div class="popup-right">
+<h2>Đoàn Tuấn Tú</h2>
+<p><b>Ngày sinh:</b> 06/02/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Học bá sợ ma</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 31 -->
+<div class="overlay" id="popup31">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup31').style.display='none'">✖</div>
+<div class="popup-left"><img src="15.jpg"></div>
+<div class="popup-right">
+<h2>Đoàn Minh Hiếu</h2>
+<p><b>Ngày sinh:</b> 30/10/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Đẹp chai, đẹp chai, đẹp chai</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 32 -->
+<div class="overlay" id="popup32">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup32').style.display='none'">✖</div>
+<div class="popup-left"><img src="28.jpg"></div>
+<div class="popup-right">
+<h2>Nguyễn Duy Phương</h2>
+<p><b>Ngày sinh:</b> 27/03/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Boy phố Thái Bình:33</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 33 -->
+<div class="overlay" id="popup33">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup33').style.display='none'">✖</div>
+<div class="popup-left"><img src="1.jpg"></div>
+<div class="popup-right">
+<h2>Lee Vân Anh</h2>
+<p><b>Ngày sinh:</b> 27/7/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Boy phố mullet</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 34 -->
+<div class="overlay" id="popup34">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup34').style.display='none'">✖</div>
+<div class="popup-left"><img src="2.jpg"></div>
+<div class="popup-right">
+<h2>Nguyễn Đỗ Quỳnh Anh </h2>
+<p><b>Ngày sinh:</b> 14/05/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Hùa hùa, ngơ ngơ </p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 35 -->
+<div class="overlay" id="popup35">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup35').style.display='none'">✖</div>
+<div class="popup-left"><img src="7.jpg"></div>
+<div class="popup-right">
+<h2>Lê Nguyễn Hoàng Cường</h2>
+<p><b>Ngày sinh:</b> 16/10/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Cồn</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 36 -->
+<div class="overlay" id="popup36">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup36').style.display='none'">✖</div>
+<div class="popup-left"><img src="18.jpg"></div>
+<div class="popup-right">
+<h2>Trần Phạm Minh Khoa</h2>
+<p><b>Ngày sinh:</b> 01/01/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> ít nói, cao ráo</p>
+</div>
+</div>
+</div>
+
+<!-- POPUP 37 -->
+<div class="overlay" id="popup37">
+<div class="popup">
+<div class="close-btn" onclick="document.getElementById('popup37').style.display='none'">✖</div>
+<div class="popup-left"><img src="30.jpg"></div>
+<div class="popup-right">
+<h2>Hà Huy Tiến</h2>
+<p><b>Ngày sinh:</b> 01/04/2008</p>
+<p><b>Ấn tượng đầu tiên:</b> Dòng trên</p>
+</div>
+</div>
+</div>
+
+</body>
+</html>

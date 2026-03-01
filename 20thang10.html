@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20 Tháng 10 - Kỷ Niệm Lớp 10L</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+<style>
+/* HIỆU ỨNG RƠI */
+.falling-item {
+    position: fixed;
+    top: -50px;
+    z-index: 9999;
+    user-select: none;
+    pointer-events: none;
+    animation: fall linear forwards;
+}
+@keyframes fall {
+    to { transform: translateY(110vh) rotate(360deg); }
+}
+
+body{
+margin:0;
+font-family:'Segoe UI',Arial,sans-serif;
+background:linear-gradient(rgba(255,255,255,.7),rgba(255,255,255,.7)),
+url('20thang10.jpg');
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+color:#444;
+overflow-x:hidden;
+display:flex;
+flex-direction:column;
+min-height:100vh;
+}
+
+/* ===== Banner Tươi Sáng ===== */
+.banner{
+width:100%;
+height:280px;
+/* Chuyển sang tông màu tươi sáng hơn */
+background:linear-gradient(135deg,#ffafbd,#ffc3a0,#a2d2ff);
+background-size:300% 300%;
+animation:gradientMove 6s ease infinite;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+color:#fff;
+text-align:center;
+border-bottom:5px solid #fff;
+}
+@keyframes gradientMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+.banner h1{margin:0;font-size:3.5rem;font-weight:800}
+
+/* ===== Container ===== */
+.container{max-width:1100px;margin:40px auto;padding:0 20px;flex:1}
+
+.section-card{
+background:rgba(255,255,255,.9); /* Tăng độ sáng cho card */
+backdrop-filter:blur(10px);
+border-radius:30px;
+padding:40px;
+margin-bottom:50px;
+display:flex;
+align-items:center;
+gap:45px;
+box-shadow:0 10px 30px rgba(255,182,193,.3);
+}
+
+.section-card:nth-child(even){
+flex-direction:row-reverse;
+}
+
+.media-box{
+flex:1;
+min-width:400px;
+height:420px;
+border-radius:25px;
+overflow:hidden;
+border:6px solid #fff;
+box-shadow:0 5px 15px rgba(0,0,0,.08);
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+}
+
+/* ===== Video Button Tươi Sáng ===== */
+.play-btn{
+background:linear-gradient(45deg,#ff9a9e,#fecfef);
+color:#fff;
+border:none;
+padding:16px 35px;
+border-radius:50px;
+font-weight:bold;
+cursor:pointer;
+font-size:1.1rem;
+transition:.3s;
+box-shadow:0 8px 20px rgba(255,154,158,.3);
+}
+
+.play-btn:hover{
+transform:translateY(-5px) scale(1.05);
+box-shadow:0 12px 25px rgba(255,154,158,.5);
+}
+
+/* ===== Fade Animation ===== */
+.fade-in{
+animation:fadeIn .8s ease forwards;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:scale(.95);}
+to{opacity:1;transform:scale(1);}
+}
+
+.swiper{width:100%;height:100%;}
+.swiper-slide img{width:100%;height:100%;object-fit:cover;}
+
+.text-box{flex:1.3}
+.text-box h2{
+color:#ff758c; /* Màu hồng tươi cho tiêu đề */
+font-size:1.7rem;
+margin-bottom:15px;
+border-bottom:2px solid #ffafbd;
+display:inline-block;
+}
+.text-box p{
+line-height:1.8;
+font-size:1.1rem;
+color:#555;
+text-align:justify; /* Giữ nguyên canh dòng đều nhau */
+margin-bottom:15px;
+}
+
+footer{
+background:rgba(255,255,255,.9);
+color:#ff758c;
+text-align:center;
+padding:30px;
+border-top:3px solid #ffafbd;
+}
+
+.glitter-btn {
+  background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3, #48dbfb);
+  background-size: 300% 300%;
+  border: none;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 16px 45px;
+  border-radius: 60px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.7), 0 0 40px rgba(255, 223, 0, 0.5), 0 0 60px rgba(72, 219, 251, 0.5);
+  animation: glitter 1.5s ease-in-out infinite, gradientShift 4s ease infinite;
+  transition: transform 0.3s, box-shadow 0.3s;
+  letter-spacing: 1px;
+  border: 2px solid rgba(255,255,255,0.3);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.glitter-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 30px rgba(255, 105, 180, 0.9), 0 0 60px rgba(255, 223, 0, 0.8), 0 0 90px rgba(72, 219, 251, 0.8);
+}
+
+@keyframes glitter {
+  0% { opacity: 0.8; text-shadow: 0 0 5px #fff; }
+  50% { opacity: 1; text-shadow: 0 0 20px #fff, 0 0 30px #ff0; }
+  100% { opacity: 0.8; text-shadow: 0 0 5px #fff; }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@media(max-width:900px){
+.section-card,.section-card:nth-child(even){
+flex-direction:column;
+text-align:center;
+}
+.media-box{
+min-width:100%;
+height:300px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="banner">
+<h1>20 THÁNG 10 ĐẦU TIÊN</h1>
+<p>Kỷ Niệm Lớp 10L - Chuyên Hùng Vương</p>
+</div>
+
+<div class="container">
+
+<div class="section-card">
+<div class="media-box">
+<div class="swiper mySwiper">
+<div class="swiper-wrapper">
+<div class="swiper-slide"><img src="a1.jpg"></div>
+<div class="swiper-slide"><img src="a2.jpg"></div>
+<div class="swiper-slide"><img src="a3.jpg"></div>
+<div class="swiper-slide"><img src="a4.jpg"></div>
+<div class="swiper-slide"><img src="a5.jpg"></div>
+<div class="swiper-slide"><img src="a6.jpg"></div>
+</div>
+<div class="swiper-pagination"></div>
+</div>
+</div>
+
+<div class="text-box">
+<h2>📸 Mái Nhà Chung Đầy Kỷ Niệm</h2>
+<p>Ngày 20 tháng 10 hôm ấy, cả lớp đã cùng nhau chụp những bức ảnh kỷ niệm với cô Lan, cô Tuyên và các bạn trong lớp. Trong từng bức ảnh, không chỉ có nụ cười rạng rỡ mà còn có sự gắn bó, thân quen như một tập thể đã cùng nhau học tập, vui chơi và trưởng thành. Khoảnh khắc đứng cạnh các cô và bạn bè, chúng mình cảm nhận rõ ràng rằng lớp học không chỉ là nơi học bài, mà còn là một mái nhà nhỏ chứa đầy kỷ niệm.</p>
+</div>
+</div>
+
+<div class="section-card">
+
+<div class="media-box" id="video-box">
+<div id="btn-container" style="text-align:center">
+<div style="font-size:55px;margin-bottom:15px; filter: drop-shadow(0 0 10px #ffafbd);">🌸</div>
+<button class="play-btn" onclick="loadVideo()">Nhấn Để Xem Video</button>
+</div>
+</div>
+
+<div class="text-box">
+<h2>✨ Khoảnh Khắc Gắn Kết & Hạnh Phúc</h2>
+<p>Buổi tối hôm đó thực sự là điểm nhấn khó quên. Các bạn nam đã chuẩn bị những lời chúc vô cùng chân thành dành tặng các bạn nữ. Có thể không quá cầu kỳ, không hoa mỹ, nhưng từng lời nói đều mang theo sự trân trọng, quan tâm và tình cảm trong sáng của tuổi học trò. Những tràng cười giòn tan, những ánh mắt ngạc nhiên và hạnh phúc của các bạn nữ đã khiến không khí trở nên ấm áp hơn bao giờ hết.</p>
+<p>Chúng mình đã cùng nhau vui cười, quay video, lưu lại từng khoảnh khắc nhỏ bé nhưng đầy ý nghĩa. Trong giây phút ấy, mọi áp lực học tập dường như tan biến, chỉ còn lại niềm vui, sự hạnh phúc và cảm giác thật may mắn khi được là một phần của tập thể này. Có những khoảnh khắc tưởng chừng rất bình thường, nhưng sau này khi nhìn lại, mới thấy đó là những điều quý giá không thể lặp lại.</p>
+</div>
+
+</div>
+
+</div>
+<div style="text-align: center; margin: 30px 0 40px;">
+  <a href="index.html" class="glitter-btn">🏠 Quay về trang chủ</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+new Swiper(".mySwiper",{
+loop:true,
+autoplay:{delay:3000,disableOnInteraction:false},
+pagination:{el:".swiper-pagination",clickable:true},
+});
+
+function loadVideo(){
+const box=document.getElementById("video-box");
+box.innerHTML=`
+<iframe class="fade-in"
+src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/reel/200753126383385"
+width="100%"
+height="100%"
+style="border:none;overflow:hidden"
+scrolling="no"
+frameborder="0"
+allowfullscreen="true">
+</iframe>
+`;
+}
+
+// 2 HIỆU ỨNG RƠI: HOA ANH ĐÀO VÀ TRÁI TIM
+function createFallingItems() {
+    const items = ['🌸', '💖']; 
+    const item = document.createElement('div');
+    item.classList.add('falling-item');
+    item.innerText = items[Math.floor(Math.random() * items.length)];
+    
+    item.style.left = Math.random() * 100 + 'vw';
+    item.style.animationDuration = Math.random() * 3 + 3 + 's'; 
+    item.style.opacity = Math.random() * 0.5 + 0.5;
+    item.style.fontSize = Math.random() * 10 + 18 + 'px';
+
+    document.body.appendChild(item);
+
+    setTimeout(() => { item.remove(); }, 6000);
+}
+setInterval(createFallingItems, 300);
+</script>
+
+</body>
+</html>

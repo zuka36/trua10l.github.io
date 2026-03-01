@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Ngày 8/3 - Tôn Vinh Phái Đẹp</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        /* ===== TOÀN TRANG ===== */
+        body {
+            margin: 0;
+            font-family: 'Quicksand', Arial, sans-serif;
+            background-image: url("8thg3.png"); /* Nền 8/3 của Nam */
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
+            background-color: #ffe6e6; /* Đổi màu nền dự phòng sang hồng nhạt */
+            color: #333; 
+            display: flex; flex-direction: column; min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== HIỆU ỨNG CÁNH HOA/TRÁI TIM RƠI ===== */
+        .petal {
+            position: fixed; top: -50px; z-index: 9999; pointer-events: none;
+            animation-name: fall, swing; animation-timing-function: linear, ease-in-out;
+            animation-iteration-count: infinite; 
+            color: #ff69b4; /* Màu hồng */
+            filter: drop-shadow(0 2px 4px rgba(255, 105, 180, 0.4));
+        }
+        @keyframes fall { 0% { top: -50px; } 100% { top: 100vh; } }
+        @keyframes swing { 0% { transform: translateX(0px) rotate(0deg); } 50% { transform: translateX(100px) rotate(180deg); } 100% { transform: translateX(0px) rotate(360deg); } }
+
+        /* ===== BANNER 8/3 ===== */
+        .banner {
+            width: 100%; height: 220px;
+            /* Gradient Hồng Đỏ - Rose Gold sang trọng */
+            background: linear-gradient(135deg, rgba(216, 27, 96, 0.85), rgba(255, 143, 171, 0.9)); 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: white; text-align: center;
+            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
+            border-bottom: 4px solid #ffb6c1;
+        }
+        .banner h1 {
+            font-family: 'Playfair Display', serif;
+            margin: 0; font-size: 3.5rem; letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+        }
+        .banner p { font-size: 1.2rem; margin-top: 10px; font-weight: 500; font-style: italic; }
+
+        /* ===== LAYOUT CHÍNH ===== */
+        .container {
+            max-width: 1200px; margin: 40px auto; padding: 0 20px; flex: 1;
+        }
+
+        /* Từng khối nội dung */
+        .card-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px; padding: 40px; margin-bottom: 60px;
+            display: flex; align-items: center; gap: 50px;
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.15);
+            border: 2px dashed #ffb6c1; /* Viền nét đứt hồng nhạt */
+            position: relative;
+            transition: transform 0.3s;
+        }
+        .card-section:hover { transform: translateY(-5px); }
+        .card-section:nth-child(even) { flex-direction: row-reverse; } /* Đảo chiều so le */
+
+        /* ===== KHUNG ẢNH TRƯỢT (ROSE GOLD) ===== */
+        .image-slider {
+            flex: 1; min-width: 400px; max-width: 550px; height: 380px;
+            position: relative;
+            border: 10px solid #ffc0cb; /* Viền hồng phấn */
+            border-radius: 30px; 
+            box-shadow: 0 15px 30px rgba(216, 27, 96, 0.2), inset 0 0 20px rgba(255, 192, 203, 0.5);
+            background: #fff; overflow: hidden;
+        }
+        
+        .swiper { width: 100%; height: 100%; }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Nút điều hướng ảnh */
+        .swiper-button-next, .swiper-button-prev {
+            color: #fff !important; transform: scale(0.7);
+            background: rgba(216, 27, 96, 0.7); /* Nút bấm màu đỏ hồng */
+            width: 50px; height: 50px; border-radius: 50%;
+            border: 2px solid #fff; z-index: 10;
+        }
+        .swiper-pagination-bullet-active { background: #d81b60 !important; }
+
+        /* ===== VĂN BẢN ===== */
+        .text-content { flex: 1.3; }
+        .text-content h2 {
+            font-family: 'Playfair Display', serif; 
+            color: #d81b60; /* Tiêu đề màu hồng đậm */
+            border-bottom: 2px solid #ffb6c1; display: inline-block;
+            margin-bottom: 20px; font-size: 2.2rem; padding-bottom: 5px;
+        }
+        .text-content p { 
+            line-height: 1.8; font-size: 1.15rem; color: #555; text-align: justify;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: rgba(51, 51, 51, 0.95);
+            color: #ffb6c1; /* Chữ footer màu hồng nhạt */
+            text-align: center; padding: 25px 20px; margin-top: auto;
+            border-top: 4px solid #d81b60;
+        }
+        footer p { margin: 5px 0; font-size: 1.1rem; }
+
+        /* Mobile */
+        @media (max-width: 900px) {
+            .card-section, .card-section:nth-child(even) { flex-direction: column; text-align: center; }
+            .image-slider { max-width: 100%; min-width: auto; height: 300px; border-width: 6px; }
+            .banner h1 { font-size: 2.2rem; }
+        }
+        .glitter-btn {
+  background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3, #48dbfb);
+  background-size: 300% 300%;
+  border: none;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 16px 45px;
+  border-radius: 60px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.7), 0 0 40px rgba(255, 223, 0, 0.5), 0 0 60px rgba(72, 219, 251, 0.5);
+  animation: glitter 1.5s ease-in-out infinite, gradientShift 4s ease infinite;
+  transition: transform 0.3s, box-shadow 0.3s;
+  letter-spacing: 1px;
+  border: 2px solid rgba(255,255,255,0.3);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.glitter-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 30px rgba(255, 105, 180, 0.9), 0 0 60px rgba(255, 223, 0, 0.8), 0 0 90px rgba(72, 219, 251, 0.8);
+}
+
+@keyframes glitter {
+  0% { opacity: 0.8; text-shadow: 0 0 5px #fff; }
+  50% { opacity: 1; text-shadow: 0 0 20px #fff, 0 0 30px #ff0; }
+  100% { opacity: 0.8; text-shadow: 0 0 5px #fff; }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+    </style>
+</head>
+
+<body>
+
+<div id="petal-container"></div>
+
+<div class="banner">
+    <h1>HAPPY WOMEN'S DAY</h1>
+    <p>Tôn vinh một nửa thế giới xinh đẹp</p>
+</div>
+
+<div class="container">
+    
+    <div class="card-section">
+        <div class="image-slider">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="muc15 (1).jpg" alt="Ảnh 1"></div>
+                    <div class="swiper-slide"><img src="muc15 (2).jpg" alt="Ảnh 2"></div>
+                    <div class="swiper-slide"><img src="muc15 (3).jpg" alt="Ảnh 1"></div>
+                    <div class="swiper-slide"><img src="muc15 (4).jpg" alt="Ảnh 2"></div>
+                    <div class="swiper-slide"><img src="muc15 (5).jpg" alt="Ảnh 1"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+        <div class="text-content">
+            <h2>🌸 Gửi Yêu Thương Ngày 8/3</h2>
+            <p>Nhân dịp kỉ niệm ngày Quốc tế Phụ nữ 8/3, lớp 10L đã có một buổi sinh hoạt thật vui vẻ và ý nghĩa. Đây là dịp đặc biệt để cả lớp cùng nhau gửi những lời chúc tốt đẹp và sự quan tâm chân thành đến các bạn nữ trong lớp. Không khí hôm ấy tràn ngập niềm vui, tiếng cười và những khoảnh khắc đáng nhớ của tập thể lớp 10L.</p>
+        </div>
+    </div>
+
+    <div class="card-section">
+        <div class="image-slider">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="muc16 (1).jpg" alt="Ảnh 1"></div>
+                    <div class="swiper-slide"><img src="muc16 (2).jpg" alt="Ảnh 2"></div>
+                    <div class="swiper-slide"><img src="muc16 (3).jpg" alt="Ảnh 1"></div>
+                    <div class="swiper-slide"><img src="muc16 (4).jpg" alt="Ảnh 2"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+        <div class="text-content">
+            <h2>🌷 Khoảnh Khắc Đẹp 8/3 </h2>
+            <p>Ngày 8/3 năm nay thật đặc biệt và đáng nhớ đối với lớp chúng em. Thầy Danh cùng các bạn nam đã chuẩn bị một món quà rất dễ thương dành tặng cho các bạn nữ trong lớp. Đó là những chiếc bánh kem nhỏ xinh, ngọt ngào và những chậu sen đá xanh mát kèm theo những bông hoa tươi thắm. Món quà tuy giản dị nhưng chứa đựng nhiều tình cảm và sự quan tâm chân thành. Nhờ vậy, không khí lớp học trở nên ấm áp, vui vẻ và tràn ngập tiếng cười trong ngày ý nghĩa này.</p>
+        </div>
+    </div>
+
+    <div class="card-section">
+        <div class="image-slider">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="muc17 (1).jpg" alt="Ảnh 1"></div>
+                    <div class="swiper-slide"><img src="muc17 (2).jpg" alt="Ảnh 2"></div>
+                    <div class="swiper-slide"><img src="muc17 (3).jpg" alt="Ảnh 1"></div>
+                    <div class="swiper-slide"><img src="muc17 (4).jpg" alt="Ảnh 2"></div>
+                    <div class="swiper-slide"><img src="muc17 (5).jpg" alt="Ảnh 1"></div>
+                    <div class="swiper-slide"><img src="muc17 (6).jpg" alt="Ảnh 2"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+        <div class="text-content">
+            <h2>💖 Tri Ân 8/3 Lớp 10L</h2>
+            <p>Trong buổi kỉ niệm ngày 8/3, chúng em đã cùng nhau chuẩn bị những bó hoa tươi thắm để dành tặng cô My, cô Bình, cô Tuyên và cô Mến. Những bông hoa tuy giản dị nhưng chứa đựng tình cảm yêu mến, sự kính trọng và lòng biết ơn sâu sắc của chúng em đối với các cô. Khi nhận hoa, các cô đều nở nụ cười rạng rỡ, khiến không khí lớp học trở nên ấm áp và đầy xúc động. Khoảnh khắc ấy đã để lại trong lòng chúng em nhiều kỉ niệm đẹp và đáng nhớ. </p>
+        </div>
+    </div>
+
+</div>
+
+<div style="text-align: center; margin: 30px 0 40px;">
+  <a href="index.html" class="glitter-btn">🏠 Quay về trang chủ</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    // Kích hoạt thanh trượt
+    var swipers = new Swiper(".mySwiper", {
+        loop: true,
+        autoplay: { delay: 4000, disableOnInteraction: false },
+        pagination: { el: ".swiper-pagination", clickable: true },
+        navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+    });
+
+    // Hiệu ứng hoa, tim bay cho 8/3
+    const container = document.getElementById('petal-container');
+    const symbols = ['🌸', '💖', '🌷', '💮']; 
+    function dropPetal() {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.fontSize = (Math.random() * 10 + 15) + 'px';
+        const duration = Math.random() * 6 + 6;
+        petal.style.animationDuration = `${duration}s, ${duration/2}s`;
+        petal.style.opacity = Math.random() * 0.6 + 0.4;
+        container.appendChild(petal);
+        setTimeout(() => { petal.remove(); }, duration * 1000);
+    }
+    setInterval(dropPetal, 300);
+</script>
+
+</body>
+</html>
